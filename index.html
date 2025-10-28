@@ -1,66 +1,79 @@
-
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Brentford Art Deco — Interactive Map</title>
+  <title>Brentford Art Deco Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+e2Hk6t0b1g2Qb7r3Gk5k2V5Q5hR8p+v+0Qm0u6mM=" crossorigin=""/>
-  <style> html,body,#map{height:100%;margin:0;padding:0} .popup-img{max-width:220px;display:block;margin-bottom:8px;} </style>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha512-sA+e2Hk6t0b1g2Qb7r3Gk5k2V5Q5hR8p+v+0Qm0u6mM="
+    crossorigin=""
+  />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+    .leaflet-container {
+      background: #f8f8f8;
+    }
+  </style>
 </head>
 <body>
-<div id="map"></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-o9N1j8YkYfuc0w7gT8y3zq6QbqK8b6bQf6g1Yq1hC2M=" crossorigin=""></script>
-<script>
-var map = L.map('map').setView([51.4845, -0.322], 15);
+  <div id="map"></div>
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '© OpenStreetMap contributors'
-}).addTo(map);
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha512-o9N1j8YkYfuc0w7gT8y3zq6QbqK8b6bQf6g1Yq1hC2M="
+    crossorigin=""
+  ></script>
 
-var buildings = [
-  {
-    name: "Gillette Building (Gillette Corner)",
-    coords: [51.48399, -0.32761],
-    desc: "Iconic Art Deco former Gillette factory with clock tower (Grade II listed).",
-    imgLink: "https://en.wikipedia.org/wiki/Gillette_Corner",
-    source: "Wikipedia / Wikimedia Commons"
-  },
-  {
-    name: "Pyrene Factory / Westlink House",
-    coords: [51.48539, -0.32019],
-    desc: "Pyrene (fire extinguishers) factory built 1928; later known as Westlink House (Grade II listed).",
-    imgLink: "https://goldenmile.london/map/pyrene-factory-now-westlink-house-1928/",
-    source: "Golden Mile / Brentford history"
-  },
-  {
-    name: "Firestone Tyre Factory (site / historic)",
-    coords: [51.48387, -0.31647],
-    desc: "Firestone Tyre Factory — famous Art Deco factory (demolished 1980). There are historic images and remnants recorded online.",
-    imgLink: "https://en.wikipedia.org/wiki/Firestone_Tyre_Factory",
-    source: "Wikipedia / historic photos"
-  },
-  {
-    name: "Former Currys / Coty & other Golden Mile units",
-    coords: [51.4852, -0.3230],
-    desc: "Several surviving Art Deco commercial buildings (former Currys, Coty, etc.) along the Great West Road.",
-    imgLink: "https://adrianyekkes.blogspot.com/2016/06/art-deco-on-west-londons-golden-mile.html",
-    source: "Local photography & history blogs"
-  }
-];
+  <script>
+    const map = L.map('map').setView([51.4845, -0.322], 15);
 
-buildings.forEach(function(b){
-  var marker = L.marker(b.coords).addTo(map);
-  var popupHtml = '<strong>' + b.name + '</strong><br>' +
-                  '<em>' + b.desc + '</em><br>' +
-                  '<a href="' + b.imgLink + '" target="_blank">Open photos / details</a><br>' +
-                  '<small>Source: ' + b.source + '</small>';
-  marker.bindPopup(popupHtml);
-});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-</script>
+    const buildings = [
+      {
+        name: "Gillette Building (Gillette Corner)",
+        coords: [51.48399, -0.32761],
+        desc: "Iconic Art Deco former Gillette factory with clock tower (Grade II listed).",
+        imgLink: "https://en.wikipedia.org/wiki/Gillette_Corner"
+      },
+      {
+        name: "Pyrene Factory / Westlink House",
+        coords: [51.48539, -0.32019],
+        desc: "Pyrene (fire extinguishers) factory built 1928; later known as Westlink House (Grade II listed).",
+        imgLink: "https://goldenmile.london/map/pyrene-factory-now-westlink-house-1928/"
+      },
+      {
+        name: "Firestone Tyre Factory (historic site)",
+        coords: [51.48387, -0.31647],
+        desc: "Famous Art Deco factory (demolished 1980). Historic images available online.",
+        imgLink: "https://en.wikipedia.org/wiki/Firestone_Tyre_Factory"
+      },
+      {
+        name: "Former Currys / Coty & other Golden Mile units",
+        coords: [51.4852, -0.3230],
+        desc: "Several surviving Art Deco commercial buildings (former Currys, Coty, etc.) along the Great West Road.",
+        imgLink: "https://adrianyekkes.blogspot.com/2016/06/art-deco-on-west-londons-golden-mile.html"
+      }
+    ];
+
+    buildings.forEach(b => {
+      const marker = L.marker(b.coords).addTo(map);
+      marker.bindPopup(
+        <b>${b.name}</b><br>${b.desc}<br><a href="${b.imgLink}" target="_blank">View photos</a>
+      );
+    });
+  </script>
 </body>
 </html>
